@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배연아 | AI소프트웨어학과 포트폴리오</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Noto Sans KR & Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FACC15',
+                            amber: '#F59E0B',
+                            gold: '#EAB308',
+                            lightYellow: '#FEF08A',
+                            softYellow: '#FFFBEB',
+                            dark: '#1E293B',
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 25px -5px rgba(245, 158, 11, 0.4)',
+                        'glow-lg': '0 0 40px -5px rgba(250, 204, 21, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* Yellow Gradient Points & Text Gradients */
+        .gradient-yellow {
+            background: linear-gradient(135deg, #FDE047 0%, #F59E0B 100%);
+        }
+        .gradient-yellow-subtle {
+            background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%);
+        }
+        .text-gradient-yellow {
+            background: linear-gradient(135deg, #CA8A04 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-mesh-yellow {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(254, 240, 138, 0.45) 0px, transparent 50%),
+                radial-gradient(at 90% 20%, rgba(253, 224, 71, 0.35) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, rgba(254, 243, 199, 0.4) 0px, transparent 50%);
+        }
+
+        /* Smooth Mode Transition Effect */
+        .content-transition {
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+        }
+        .content-hidden {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        .content-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Cards */
+        .float-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .float-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.15), 0 8px 10px -6px rgba(245, 158, 11, 0.1);
+        }
+
+        /* Active Mode Button Indicator */
+        .mode-btn-active {
+            background: linear-gradient(135deg, #FACC15 0%, #F59E0B 100%);
+            color: #000000;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            transform: scale(1.03);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #facc15;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Sequential Delay for Grid Items */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+    </style>
+</head>
+<body class="bg-mesh-yellow min-h-screen text-slate-800 antialiased flex flex-col justify-between">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-yellow-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl gradient-yellow flex items-center justify-center text-slate-900 font-extrabold text-xl shadow-md group-hover:rotate-6 transition-transform">
+                    B
+                </div>
+                <span class="font-black text-xl tracking-tight text-slate-900">
+                    BAE<span class="text-amber-500">.</span>PORTFOLIO
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600 text-sm">
+                <a href="#about" class="hover:text-amber-600 transition-colors">소개 (About)</a>
+                <a href="#skills" class="hover:text-amber-600 transition-colors">전공 역량 (Skills)</a>
+                <a href="#projects" class="hover:text-amber-600 transition-colors">프로젝트 (Projects)</a>
+                <a href="#experience" class="hover:text-amber-600 transition-colors">학교 및 활동 (History)</a>
+                <a href="#guestbook" class="hover:text-amber-600 transition-colors">방명록 (Guestbook)</a>
+            </nav>
+
+            <!-- Contact Header Button -->
+            <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full gradient-yellow font-bold text-slate-900 text-sm hover:brightness-105 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>연락하기</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="about" class="pt-12 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+
+            <!-- Hero Main Profile Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Profile Image & Quick Card (Left - 5 cols) -->
+                <div class="lg:col-span-5 flex flex-col items-center reveal">
+                    <div class="relative group">
+                        <!-- Yellow Gradient Glow Ring -->
+                        <div class="absolute -inset-1.5 gradient-yellow rounded-3xl blur-md opacity-80 group-hover:opacity-100 transition duration-500 group-hover:scale-105"></div>
+                        
+                        <!-- Avatar Container -->
+                        <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-3xl overflow-hidden bg-white border-4 border-white shadow-xl flex items-center justify-center">
+                            <img id="profileImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="배연아 프로필" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            
+                            <!-- Dynamic Tag Overlay -->
+                            <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl text-center border border-amber-100 shadow-lg">
+                                <span id="profileTag" class="text-xs font-bold tracking-wide text-amber-700 uppercase">
+                                    Hanil Girls' High School • AI Software
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Quick Stats Badge -->
+                    <div class="mt-6 grid grid-cols-3 gap-3 w-full max-w-xs">
+                        <div class="bg-white p-3 rounded-xl border border-yellow-200 text-center shadow-sm">
+                            <div class="text-xs text-slate-500 font-medium">소속</div>
+                            <div id="statExp" class="text-xs font-extrabold text-amber-600 mt-1">한일여고</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-yellow-200 text-center shadow-sm">
+                            <div class="text-xs text-slate-500 font-medium">프로젝트</div>
+                            <div id="statProjects" class="text-base font-extrabold text-amber-600">8건+</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-yellow-200 text-center shadow-sm">
+                            <div class="text-xs text-slate-500 font-medium">성장 열정</div>
+                            <div id="statSatisfaction" class="text-base font-extrabold text-amber-600">100%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Profile Intro (Right - 7 cols) -->
+                <div class="lg:col-span-7 reveal delay-100">
+                    <div id="modeContentBox" class="content-transition content-visible space-y-6">
+                        
+                        <!-- Role Badge & Subtitle -->
+                        <div class="space-y-2">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-yellow-100 text-amber-900 font-semibold text-xs border border-yellow-300/60" id="heroBadge">
+                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                <span id="heroBadgeText">한일여고 AI소프트웨어학과 예비 개발자</span>
+                            </div>
+                            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+                                안녕하세요, <br>
+                                <span id="heroTitle" class="text-gradient-yellow">AI와 코딩으로 불편을 해결합니다</span>
+                            </h1>
+                        </div>
+
+                        <!-- Bio Description -->
+                        <p id="heroDescription" class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
+                            한일여자고등학교 AI소프트웨어학과에 재학 중인 예비 개발자 배연아입니다. 교무실 키오스크 '교무실 비서'처럼 실생활과 학교 현장의 문제를 IT 기술로 편리하게 개선하는 프로그래밍을 즐깁니다.
+                        </p>
+
+                        <!-- Dynamic Key Highlights Checklist -->
+                        <div class="bg-amber-50/70 border border-yellow-200 rounded-2xl p-5 space-y-3" id="heroHighlights">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">✓</div>
+                                <p class="text-sm text-slate-700 font-medium"><strong class="text-slate-900">'교무실 비서' 스마트 키오스크</strong> 등 문제 해결형 SW 설계 및 개발</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">✓</div>
+                                <p class="text-sm text-slate-700 font-medium"><strong class="text-slate-900">Python & C 언어 & VB.NET</strong> 기반의 알고리즘 구현 및 상호작용 UI 구축</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-400 text-slate-900 flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">✓</div>
+                                <p class="text-sm text-slate-700 font-medium"><strong class="text-slate-900">HTML5 / CSS3 / JavaScript / App Inventor</strong> 활용 다채로운 반응형 서비스 제작</p>
+                            </div>
+                        </div>
+
+                        <!-- Mode Accent Quote -->
+                        <div class="border-l-4 border-amber-400 pl-4 py-1 italic text-slate-600 text-sm" id="heroQuote">
+                            "사용자(학생과 선생님)의 목소리에 귀 기울여 실용 가치를 창출하는 개발자가 되겠습니다."
+                        </div>
+
+                        <!-- Action CTA Buttons -->
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <a href="#projects" class="px-6 py-3 rounded-xl gradient-yellow font-bold text-slate-900 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2 text-sm">
+                                <span>대표 프로젝트 보기</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <a href="#contact" class="px-6 py-3 rounded-xl bg-white border-2 border-slate-200 font-bold text-slate-700 hover:border-amber-400 hover:text-amber-600 transition-all flex items-center gap-2 text-sm">
+                                <i class="fa-regular fa-envelope"></i>
+                                <span>연락 남기기</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-16 bg-white border-y border-yellow-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase">Core Competencies</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">AI소프트웨어학과 전공 역량</h2>
+                    <div class="w-12 h-1 gradient-yellow mx-auto rounded-full mt-3"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="skillsGrid">
+                    
+                    <!-- Skill Card 1: Languages & AI -->
+                    <div class="float-card bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-amber-300 reveal delay-100">
+                        <div class="w-12 h-12 rounded-xl gradient-yellow flex items-center justify-center text-slate-900 text-xl font-bold mb-4 shadow-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Core Languages & AI</h3>
+                        <p class="text-slate-600 text-xs mb-4">Python과 C, Visual Basic .NET을 활용한 프로그래밍 및 데이터 처리</p>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Python (AI & 데이터 분석)</span>
+                                    <span class="text-amber-600">90%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>C 언어</span>
+                                    <span class="text-amber-600">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Visual Basic .NET</span>
+                                    <span class="text-amber-600">80%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 2: Web Development -->
+                    <div class="float-card bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-amber-300 reveal delay-200">
+                        <div class="w-12 h-12 rounded-xl gradient-yellow flex items-center justify-center text-slate-900 text-xl font-bold mb-4 shadow-sm">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Web & Kiosk Systems</h3>
+                        <p class="text-slate-600 text-xs mb-4">키오스크 UI 및 HTML, CSS, JavaScript 반응형 인터페이스 개발</p>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>HTML5 / CSS3</span>
+                                    <span class="text-amber-600">90%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>JavaScript (ES6+)</span>
+                                    <span class="text-amber-600">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Tailwind CSS</span>
+                                    <span class="text-amber-600">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 3: Mobile App & Dev Tools -->
+                    <div class="float-card bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-amber-300 reveal delay-300">
+                        <div class="w-12 h-12 rounded-xl gradient-yellow flex items-center justify-center text-slate-900 text-xl font-bold mb-4 shadow-sm">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">App & Dev Tools</h3>
+                        <p class="text-slate-600 text-xs mb-4">App Inventor를 통한 모바일 앱 제작 및 Git/VS Code 사용 환경</p>
+                        <div class="space-y-2">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>App Inventor (앱 창작)</span>
+                                    <span class="text-amber-600">88%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>Git / GitHub</span>
+                                    <span class="text-amber-600">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span>VS Code / Visual Studio</span>
+                                    <span class="text-amber-600">90%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="gradient-yellow h-full rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Portfolio Showcase Section -->
+        <section id="projects" class="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase">Portfolio Projects</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">교내 및 전공 개발 프로젝트</h2>
+                </div>
+                <p class="text-slate-500 text-sm mt-2 md:mt-0">
+                    한일여고 AI소프트웨어학과에서 기획·개발한 대표 실무 프로젝트입니다.
+                </p>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Flagship Project - 교무실 비서 -->
+                <div class="bg-white rounded-2xl border-2 border-amber-300 overflow-hidden shadow-md hover:shadow-xl transition-all float-card flex flex-col reveal delay-100 relative">
+                    <div class="absolute top-3 right-3 bg-amber-500 text-slate-900 font-extrabold text-[10px] px-2.5 py-1 rounded-full shadow-md z-10">
+                        대표 프로젝트 🌟
+                    </div>
+                    <div class="relative h-48 bg-amber-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="교무실 비서 키오스크" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-amber-700 border border-yellow-200">
+                            Smart School & Kiosk
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between bg-gradient-to-b from-amber-50/30 to-white">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2 hover:text-amber-600 transition-colors">
+                                교무실 비서 (교무실 키오스크)
+                            </h3>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                                선생님 부재나 시험기간 교무실 출입 통제 시 학생이 선생님의 상태를 조회하고 메모 및 호출을 편리하게 남기는 키오스크 솔루션.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-amber-200 text-amber-950 text-xs font-bold rounded">Kiosk UI</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">Python / Web</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">스마트 학교</span>
+                            </div>
+                            <button onclick="openModal('교무실 비서 (교무실 키오스크)', '선생님이 자리에 안 계시거나 시험 기간 출입 통제 시, 학생이 교무실 밖 키오스크에서 선생님의 재실 여부/위치를 확인하고 메모나 메시지를 전달할 수 있도록 돕는 시스템입니다.\n\n[주요 기능]\n1. 선생님 재실 / 부재 / 수업 중 상태 실시간 확인\n2. 시험기간 출입 통제 안내 및 모바일 메시지 연동\n3. 학생의 조퇴/상담 신청 및 간이 메모 전달 기능\n4. 쉬운 터치 UX/UI 인터페이스')" class="w-full py-2.5 rounded-xl gradient-yellow text-slate-900 text-xs font-bold hover:brightness-105 transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                                <span>상세보기 및 개요</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Student Game Launcher -->
+                <div class="bg-white rounded-2xl border-2 border-yellow-300 overflow-hidden shadow-sm hover:shadow-xl transition-all float-card flex flex-col reveal delay-200 relative">
+                    <div class="absolute top-3 right-3 bg-amber-400 text-slate-900 font-extrabold text-[10px] px-2.5 py-1 rounded-full shadow-md z-10">
+                        인기 프로젝트 🎮
+                    </div>
+                    <div class="relative h-48 bg-slate-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="게임 런처 웹 프로젝트" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-amber-700 border border-yellow-200">
+                            Web Game Launcher
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2 hover:text-amber-600 transition-colors">
+                                게임런처 (교내 멀티 게임 웹 런처)
+                            </h3>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                                교내 게임 사이트 차단으로 지루해하는 친구들을 위해 만든 자체 웹 런처. 4개 HTML 구조 기반 버블슈터·테트리스·과일게임 탑재.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">HTML5 / CSS / JS</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">웹 게임 런처</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">학생 편의 SW</span>
+                            </div>
+                            <button onclick="openModal('게임런처 (교내 멀티 게임 웹 런처)', '교내 방화벽 및 인터넷 제약으로 자유시간 게임 사이트 접속이 막혀 아쉬워하는 친구들을 위해 제작한 웹 기반 멀티 게임 플랫폼입니다.\n\n[개발 구조 및 수록 게임]\n1. 총 4개의 HTML 파일 연동 (메인 런처 화면 1개 + 개별 게임 파일 3개)\n2. 수록 웹 게임 3종: 버블슈터, 테트리스, 과일게임 직접 구현\n3. 웹 브라우저만 있으면 별도 설치 없이 바로 실행 가능\n4. 친구들의 학교 생활 흥미 및 쉬는 시간 유대감을 높인 인기 프로젝트!')" class="w-full py-2.5 rounded-xl border border-yellow-400 text-slate-800 text-xs font-bold hover:bg-amber-400 transition-colors flex items-center justify-center gap-1.5">
+                                <span>상세보기</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Upcoming Steam Game Project -->
+                <div class="bg-white rounded-2xl border-2 border-yellow-300/80 overflow-hidden shadow-sm hover:shadow-xl transition-all float-card flex flex-col reveal delay-300 relative">
+                    <div class="absolute top-3 right-3 bg-slate-900 text-yellow-300 font-extrabold text-[10px] px-2.5 py-1 rounded-full shadow-md z-10 flex items-center gap-1">
+                        <i class="fa-brands fa-steam text-xs"></i>
+                        <span>Steam 목표 🚀</span>
+                    </div>
+                    <div class="relative h-48 bg-slate-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="스팀 게임 개발 프로젝트" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-amber-700 border border-yellow-200">
+                            Indie Game Dev
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2 hover:text-amber-600 transition-colors">
+                                스팀(Steam) 출시 목표 팀 게임 (기획 중)
+                            </h3>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                                친구와 함께 독창적인 컨셉과 몰입감 높은 플레이 경험을 갖춘 신규 게임 프로젝트를 기획·개발하고 있습니다. 완성도를 확보해 스팀 업로드를 목표로 합니다.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">Indie Game</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">Steam Release</span>
+                                <span class="px-2 py-0.5 bg-yellow-100 text-amber-900 text-xs font-medium rounded">팀 협업 프로젝트</span>
+                            </div>
+                            <button onclick="openModal('스팀(Steam) 출시 목표 팀 게임 프로젝트', '친구와 함께 기획 중인 신규 인디 게임 개발 프로젝트입니다.\n\n[프로젝트 개요 및 목표]\n1. 친구와의 협업을 통한 독창적인 컨셉 및 게임 시스템 설계\n2. 사용자 경험(UX)과 즐거운 플레이성을 갖춘 완성도 높은 게임 개발\n3. 완성도가 확보되면 글로벌 PC 게임 플랫폼 \'스팀(Steam)\' 정식 업로드 및 출시 도전!\n4. 현재 핵심 기획 및 개발 준비 단계 진행 중')" class="w-full py-2.5 rounded-xl border border-yellow-400 text-slate-800 text-xs font-bold hover:bg-amber-400 transition-colors flex items-center justify-center gap-1.5">
+                                <span>상세보기 및 개요</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Timeline / Experience Section -->
+        <section id="experience" class="py-16 bg-gradient-to-b from-amber-50/40 to-white border-t border-yellow-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 reveal">
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase">Education & History</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">학교 생활 및 전공 활동</h2>
+                </div>
+
+                <!-- Timeline Container -->
+                <div class="relative">
+                    <!-- Central Vertical Line -->
+                    <div class="absolute left-4 md:left-1/2 top-2 bottom-2 w-0.5 bg-amber-200 -translate-x-1/2"></div>
+
+                    <div class="space-y-10 relative">
+                        
+                        <!-- Item 1 (Left Side Card) -->
+                        <div class="relative flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-12 items-center reveal">
+                            <!-- Center Icon -->
+                            <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-4 z-10 w-9 h-9 rounded-full gradient-yellow text-slate-900 font-bold shadow-md flex items-center justify-center text-xs ring-4 ring-white">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            
+                            <!-- Left Card Content -->
+                            <div class="pl-12 md:pl-0 w-full">
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm float-card hover:border-amber-300">
+                                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-yellow-100 text-amber-900 text-xs font-bold mb-2">2024.03 - 현재</span>
+                                    <h3 class="text-base font-bold text-slate-900">한일여자고등학교</h3>
+                                    <p class="text-xs text-amber-600 font-semibold mt-0.5">AI소프트웨어학과 재학 중</p>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">인공지능, 프로그래밍 언어, 웹 프로그래밍, 키오스크 UX 설계 및 데이터베이스 전공 교과 이수</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Category Badge (Desktop) -->
+                            <div class="hidden md:flex pl-4 justify-start">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-50 border border-yellow-200 text-xs font-bold text-slate-700">
+                                    <i class="fa-solid fa-school text-amber-500"></i>
+                                    <span>고교 전공 과정</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 (Right Side Card) -->
+                        <div class="relative flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-12 items-center reveal delay-100">
+                            <!-- Center Icon -->
+                            <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-4 z-10 w-9 h-9 rounded-full gradient-yellow text-slate-900 font-bold shadow-md flex items-center justify-center text-xs ring-4 ring-white">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            
+                            <!-- Left Category Badge (Desktop) -->
+                            <div class="hidden md:flex pr-4 justify-end">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-50 border border-yellow-200 text-xs font-bold text-slate-700">
+                                    <i class="fa-solid fa-users text-amber-500"></i>
+                                    <span>동아리 및 팀 프로젝트</span>
+                                </div>
+                            </div>
+
+                            <!-- Right Card Content -->
+                            <div class="pl-12 md:pl-0 w-full">
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm float-card hover:border-amber-300">
+                                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-yellow-100 text-amber-900 text-xs font-bold mb-2">2024.04 - 현재</span>
+                                    <h3 class="text-base font-bold text-slate-900">교내 AI/SW 프로그래밍 동아리</h3>
+                                    <p class="text-xs text-amber-600 font-semibold mt-0.5">동아리 부원 (SW 개발 담당)</p>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">'교무실 비서' 키오스크 서비스 개발, 알고리즘 스터디 및 웹 프로젝트 총괄</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 (Left Side Card) -->
+                        <div class="relative flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-12 items-center reveal delay-200">
+                            <!-- Center Icon -->
+                            <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-4 z-10 w-9 h-9 rounded-full gradient-yellow text-slate-900 font-bold shadow-md flex items-center justify-center text-xs ring-4 ring-white">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            
+                            <!-- Left Card Content -->
+                            <div class="pl-12 md:pl-0 w-full">
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm float-card hover:border-amber-300">
+                                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-yellow-100 text-amber-900 text-xs font-bold mb-2">2024년도</span>
+                                    <h3 class="text-base font-bold text-slate-900">교내 AI 프로그래밍 경진대회</h3>
+                                    <p class="text-xs text-amber-600 font-semibold mt-0.5">아이디어 및 구현 우수상</p>
+                                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">학교 문제 해결 서비스('교무실 비서') 아이디어 기획 및 시제품 구현 우수상 수상</p>
+                                </div>
+                            </div>
+
+                            <!-- Right Category Badge (Desktop) -->
+                            <div class="hidden md:flex pl-4 justify-start">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-50 border border-yellow-200 text-xs font-bold text-slate-700">
+                                    <i class="fa-solid fa-award text-amber-500"></i>
+                                    <span>교내 수상 성과</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guestbook Section -->
+        <section id="guestbook" class="py-16 bg-white border-t border-yellow-100">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+                    <span class="text-xs font-bold tracking-widest text-amber-600 uppercase">Visitor Messages</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">한일여고 응원 방명록</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-2">포트폴리오를 방문해주셔서 감사합니다! 따뜻한 한 마디나 응원의 글을 남겨주세요.</p>
+                    <div class="w-12 h-1 gradient-yellow mx-auto rounded-full mt-3"></div>
+                </div>
+
+                <!-- Guestbook Form & Cards Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Guestbook Input Form (4 cols) -->
+                    <div class="lg:col-span-4 bg-amber-50/60 border border-yellow-200 p-6 rounded-2xl shadow-sm reveal">
+                        <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <i class="fa-regular fa-comment-dots text-amber-500"></i>
+                            <span>방명록 남기기</span>
+                        </h3>
+                        <form onsubmit="handleAddGuestbook(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">작성자 닉네임</label>
+                                <input type="text" id="gbAuthor" required placeholder="예: 동아리 후배, 김선생님" class="w-full px-3 py-2 rounded-xl bg-white border border-amber-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">아바타 선택</label>
+                                <div class="flex gap-1.5 text-xl bg-white p-2 rounded-xl border border-amber-200 justify-around" id="avatarPicker">
+                                    <button type="button" onclick="selectAvatar('👩‍💻')" class="avatar-opt p-1 rounded hover:bg-yellow-100 ring-2 ring-amber-400 bg-yellow-100" data-avatar="👩‍💻">👩‍💻</button>
+                                    <button type="button" onclick="selectAvatar('🎓')" class="avatar-opt p-1 rounded hover:bg-yellow-100" data-avatar="🎓">🎓</button>
+                                    <button type="button" onclick="selectAvatar('⚡')" class="avatar-opt p-1 rounded hover:bg-yellow-100" data-avatar="⚡">⚡</button>
+                                    <button type="button" onclick="selectAvatar('✨')" class="avatar-opt p-1 rounded hover:bg-yellow-100" data-avatar="✨">✨</button>
+                                    <button type="button" onclick="selectAvatar('🤖')" class="avatar-opt p-1 rounded hover:bg-yellow-100" data-avatar="🤖">🤖</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">응원 메시지</label>
+                                <textarea id="gbContent" rows="3" required placeholder="멋진 포트폴리오네요! 앞으로의 성장을 응원합니다 🎉" class="w-full px-3 py-2 rounded-xl bg-white border border-amber-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-2.5 rounded-xl gradient-yellow font-bold text-slate-900 text-xs hover:brightness-105 transition-all shadow-md flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-pen-nib"></i>
+                                <span>방명록 등록하기</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Guestbook Entries List (8 cols) -->
+                    <div class="lg:col-span-8 reveal delay-100">
+                        <div id="guestbookList" class="space-y-3">
+                            <!-- Dynamic Content Rendered Here -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 rounded-3xl p-8 sm:p-12 shadow-glow-lg text-slate-900 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-12 -mr-12 w-48 h-48 bg-white/20 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="text-center max-w-xl mx-auto space-y-4 relative z-10">
+                    <span class="inline-block px-3 py-1 bg-slate-900 text-amber-300 text-xs font-black rounded-full uppercase tracking-widest">Let's Connect</span>
+                    <h2 class="text-3xl sm:text-4xl font-black">함께 멋진 프로젝트를 만들어볼까요?</h2>
+                    <p class="text-slate-800 text-sm font-medium">
+                        언제든 새로운 제안이나 협업 질문을 환영합니다. 아래 이메일이나 소셜 채널로 편하게 연락주세요!
+                    </p>
+
+                    <!-- Contact Channels Grid -->
+                    <div class="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                        <div class="bg-white/90 backdrop-blur p-4 rounded-xl flex items-center justify-between shadow-sm border border-white">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 font-bold">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 font-bold uppercase">Email</div>
+                                    <div class="text-xs font-extrabold text-slate-900" id="emailText">baeyeona@example.com</div>
+                                </div>
+                            </div>
+                            <button onclick="copyToClipboard('baeyeona@example.com', '이메일 주소')" class="px-2.5 py-1.5 bg-slate-100 hover:bg-amber-300 rounded-lg text-xs font-bold transition-colors">
+                                복사
+                            </button>
+                        </div>
+
+                        <div class="bg-white/90 backdrop-blur p-4 rounded-xl flex items-center justify-between shadow-sm border border-white">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 font-bold">
+                                    <i class="fa-brands fa-github"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 font-bold uppercase">GitHub</div>
+                                    <div class="text-xs font-extrabold text-slate-900">github.com/baeyeona</div>
+                                </div>
+                            </div>
+                            <a href="https://github.com/baeyeona" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-slate-100 hover:bg-amber-300 rounded-lg text-xs font-bold transition-colors">
+                                이동
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Message Form -->
+                    <div class="pt-6">
+                        <form onsubmit="handleContactSubmit(event)" class="bg-white p-6 rounded-2xl shadow-lg space-y-4 text-left">
+                            <h3 class="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">빠른 메시지 남기기</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-600 mb-1">성함 / 성함(회사)</label>
+                                    <input type="text" required placeholder="배연아" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-600 mb-1">답장받을 이메일</label>
+                                    <input type="email" required placeholder="your@email.com" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 mb-1">메시지 내용</label>
+                                <textarea rows="3" required placeholder="프로젝트 문의나 인사를 자유롭게 입력해주세요." class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 gradient-yellow font-black text-slate-900 rounded-xl text-xs hover:brightness-105 transition-all shadow-md">
+                                메시지 보내기
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-10 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg gradient-yellow flex items-center justify-center text-slate-900 font-black text-sm">
+                    B
+                </div>
+                <span class="font-bold text-sm tracking-tight text-white">
+                    BAE YEON A
+                </span>
+            </div>
+            <p class="text-xs text-slate-400">
+                © 2026 Bae Yeon A. All rights reserved. Designed with Warm Yellow Highlights.
+            </p>
+            <div class="flex items-center space-x-4 text-slate-400 text-sm">
+                <a href="https://github.com/baeyeona" target="_blank" rel="noopener noreferrer" title="GitHub" class="hover:text-yellow-400 transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="hover:text-yellow-400 transition-colors text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" class="hover:text-yellow-400 transition-colors text-lg"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-yellow-200 relative animate-fadeIn">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-10 h-10 rounded-xl gradient-yellow flex items-center justify-center text-slate-900 font-bold mb-3">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 id="modalTitle" class="text-xl font-bold text-slate-900 mb-2"></h3>
+            <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed mb-6 whitespace-pre-line"></p>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors">
+                    확인 및 닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Message Box -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-amber-400">
+            <div class="w-6 h-6 rounded-full gradient-yellow text-slate-900 flex items-center justify-center text-xs font-bold">
+                ✓
+            </div>
+            <span id="toastMsg" class="text-xs font-bold">알림 메시지</span>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        /* Guestbook System State & Logic */
+        let selectedAvatar = '👩‍💻';
+        let guestbookData = [
+            {
+                id: 1,
+                author: "교무실 선생님",
+                avatar: "🎓",
+                content: "'교무실 비서' 키오스크 덕분에 시험기간이나 자리 비웠을 때 학생들 메시지 확인하기가 훨씬 편리해졌어! 기발한 아이디어 최고 👍",
+                date: "2026.08.25",
+                likes: 9,
+                liked: false
+            },
+            {
+                id: 2,
+                author: "AI동아리 부장",
+                avatar: "🤖",
+                content: "연아야! 포트폴리오 대표 프로젝트로 '교무실 비서' 정리한 거 너무 깔끔하다 🔥 실용성 대박!",
+                date: "2026.08.24",
+                likes: 7,
+                liked: false
+            },
+            {
+                id: 3,
+                author: "한일여고 친구",
+                avatar: "✨",
+                content: "선생님 부재 중일 때 키오스크로 바로 전달사항 남길 수 있어서 진짜 좋아! 디자인도 노랑노랑 예쁘다!",
+                date: "2026.08.23",
+                likes: 11,
+                liked: false
+            }
+        ];
+
+        function selectAvatar(avatar) {
+            selectedAvatar = avatar;
+            document.querySelectorAll('.avatar-opt').forEach(btn => {
+                if(btn.getAttribute('data-avatar') === avatar) {
+                    btn.classList.add('ring-2', 'ring-amber-400', 'bg-yellow-100');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-amber-400', 'bg-yellow-100');
+                }
+            });
+        }
+
+        function renderGuestbook() {
+            const listEl = document.getElementById('guestbookList');
+            if(!listEl) return;
+
+            if(guestbookData.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                        <p class="text-slate-400 text-xs">아직 작성된 방명록이 없습니다. 첫 번째 방명록을 작성해보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = guestbookData.map(item => `
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-300 transition-all flex gap-3 sm:gap-4 items-start float-card">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-100 flex items-center justify-center text-xl flex-shrink-0 shadow-inner">
+                        ${item.avatar}
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-900 text-sm">${escapeHtml(item.author)}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">${item.date}</span>
+                            </div>
+                            <button onclick="toggleLike(${item.id})" class="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg ${item.liked ? 'bg-rose-50 text-rose-500 border border-rose-200 font-bold' : 'bg-slate-50 text-slate-500 hover:bg-amber-50'} transition-colors">
+                                <i class="${item.liked ? 'fa-solid' : 'fa-regular'} fa-heart ${item.liked ? 'text-rose-500' : ''}"></i>
+                                <span>${item.likes}</span>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed font-normal whitespace-pre-line">${escapeHtml(item.content)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function handleAddGuestbook(e) {
+            e.preventDefault();
+            const authorInput = document.getElementById('gbAuthor');
+            const contentInput = document.getElementById('gbContent');
+
+            const author = authorInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if(!author || !content) return;
+
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
+
+            const newEntry = {
+                id: Date.now(),
+                author: author,
+                avatar: selectedAvatar,
+                content: content,
+                date: dateStr,
+                likes: 0,
+                liked: false
+            };
+
+            guestbookData.unshift(newEntry);
+            renderGuestbook();
+
+            authorInput.value = '';
+            contentInput.value = '';
+
+            showToast('따뜻한 방명록이 성공적으로 등록되었습니다!');
+        }
+
+        function toggleLike(id) {
+            const item = guestbookData.find(gb => gb.id === id);
+            if(item) {
+                if(item.liked) {
+                    item.likes--;
+                    item.liked = false;
+                } else {
+                    item.likes++;
+                    item.liked = true;
+                }
+                renderGuestbook();
+            }
+        }
+
+        /* Copy Text To Clipboard Helper */
+        function copyToClipboard(text, label) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`${label}가 클립보드에 복사되었습니다!`);
+            } catch (err) {
+                showToast('복사에 실패하였습니다.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        /* Toast Notification Helper */
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        /* Project Modal Handlers */
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        /* Contact Form Submission Handler */
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            showToast('성공적으로 메시지가 전달되었습니다. 빠르게 연락드릴게요!');
+            event.target.reset();
+        }
+
+        /* Scroll Reveal Animation Observer Logic */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGuestbook();
+
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60px 0px',
+                threshold: 0.15
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+    </script>
+</body>
+</html>
